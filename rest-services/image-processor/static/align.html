@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Image Align Demo</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        var raw_image = { data: "", status: false };
+        var ref_image = { data: "", status: false };
+
+        function getBase64(file, target) {
+            target.status = false
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                target.data = reader.result;
+                target.status = true
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
+
+        function load_image(input, target){
+            console.log(input)
+            var file_path = input.files[0]
+            
+            getBase64(file_path, target)
+        }
+
+        function align_image(evt) {
+            console.log("Getting images")
+            var container = $("#container")
+            container.empty()
+            // var raw_file = document.querySelector('#rawfile').files[0]
+            // var ref_file = document.querySelector('#reffile').files[0]
+            // getBase64(raw_file, raw_image)
+            // getBase64(ref_file, ref_image)
+
+            console.log(raw_image)
+            console.log(ref_image)
+            $.ajax({
+                url: "/api/align",
+                type: 'POST',
+                data: JSON.stringify({ "raw_image": raw_image.data, "ref_image": ref_image.data }),
+                contentType:"application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (data) {
+                    show_result(data)
+                },
+                error: function (err) {
+                    console.log("error")
+                    console.log(err)
+                }
+            });
+        }
+
+        function show_result(data) {
+            console.log(data)
+            console.log(data.images)
+            console.log("Showing images")
+            add_image(data["aligned_img"])
+            add_image(data["key_point_match_img"])
+        }
+
+        function add_image(img) {
+            console.log(img)
+            console.log("adding image")
+            var container = $("#container")
+            var img_tag = "<img src='data:image/jpeg;base64," + img + "'>"
+            container.append(img_tag)
+        }
+    </script>
+</head>
+
+<body>
+    Raw Image : <input id="rawfile" type="file" onchange="load_image(this, raw_image)"></input>
+    Ref Image : <input id="reffile" type="file" onchange="load_image(this , ref_image)"></input>
+    <button onclick="align_image()"> Align Image </button>
+    <div id="container"></div>
+</body>
+
+</html>
