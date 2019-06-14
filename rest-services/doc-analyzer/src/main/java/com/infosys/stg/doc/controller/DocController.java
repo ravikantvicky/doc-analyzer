@@ -17,10 +17,11 @@ public class DocController {
 	TemplateService tempService;
 
 	@PostMapping(value = "/uploadTemplate")
-	public ServiceResponse uploadFile(@RequestParam("file") MultipartFile file) {
+	public ServiceResponse uploadFile(@RequestParam("file") MultipartFile file,
+			@RequestParam("templetName") String templateName) {
 		ServiceResponse response = new ServiceResponse();
 		try {
-			response.setData(tempService.uploadFile(file));
+			response.setData(tempService.uploadFile(file, templateName));
 			response.setStatus(1);
 		} catch (DocAnalyzeException e) {
 			e.printStackTrace();

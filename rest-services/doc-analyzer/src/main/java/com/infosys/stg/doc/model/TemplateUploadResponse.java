@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TemplateUploadResponse {
 	private String barcode;
-	private List<String> images;
+	private List<TemplatePages> images;
 
 	public String getBarcode() {
 		return barcode;
@@ -14,16 +14,16 @@ public class TemplateUploadResponse {
 		this.barcode = barcode;
 	}
 
-	public List<String> getImages() {
+	public List<TemplatePages> getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(List<TemplatePages> images) {
 		this.images = images;
 	}
 
 	@Override
 	public String toString() {
-		return "TemplateResponse [barcode=" + barcode + ", images=" + images + "]";
+		return "TemplateUploadResponse [barcode=" + barcode + ", images=" + images + "]";
 	}
 }
