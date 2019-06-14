@@ -32,6 +32,7 @@ def image_to_b64(img):
     '''
     Convert Image to Base64 Format
     '''
-    _, buffer = cv2.imencode(".jpg", cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+    _, buffer = cv2.imencode(".jpg", img)
+    # _, buffer = cv2.imencode(".jpg", cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
     img_as_text = base64.b64encode(buffer)
     return img_as_text.decode("utf-8")
