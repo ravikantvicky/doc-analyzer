@@ -2,17 +2,8 @@ package com.infosys.stg.doc.model;
 
 import java.util.List;
 
-public class TemplateUploadResponse {
-	private String barcode;
+public class Pdf2ImageResponse {
 	private List<String> images;
-
-	public String getBarcode() {
-		return barcode;
-	}
-
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
-	}
 
 	public List<String> getImages() {
 		return images;
@@ -24,6 +15,6 @@ public class TemplateUploadResponse {
 
 	@Override
 	public String toString() {
-		return "TemplateResponse [barcode=" + barcode + ", images=" + images + "]";
+		return "Pdf2ImageResponse [images=" + images + "]";
 	}
 }

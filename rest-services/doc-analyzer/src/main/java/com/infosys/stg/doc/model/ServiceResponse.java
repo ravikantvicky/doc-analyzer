@@ -1,7 +1,7 @@
 package com.infosys.stg.doc.model;
 
 public class ServiceResponse {
-	private int status; // 0: error, 1: success
+	private int status; // 1: success, 0: error
 	private String message;
 	private Object data;
 
