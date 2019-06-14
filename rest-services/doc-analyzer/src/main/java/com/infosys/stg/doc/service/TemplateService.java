@@ -19,7 +19,7 @@ public class TemplateService {
 		TemplateUploadResponse response = new TemplateUploadResponse();
 		try {
 			List<String> images = docService.pdf2Image(file).getImages();
-			System.out.println(images);
+			response.setImages(images);
 		} catch (Exception e) {
 			throw new DocAnalyzeException("Error in upload file.");
 		}
