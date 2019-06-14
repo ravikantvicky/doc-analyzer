@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.infosys.stg.doc.exception.DocAnalyzeException;
-import com.infosys.stg.doc.model.DocService;
 import com.infosys.stg.doc.model.TemplatePages;
 import com.infosys.stg.doc.model.TemplateUploadResponse;
 import com.infosys.stg.doc.repository.TemplateRepository;

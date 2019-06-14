@@ -1,4 +1,4 @@
-package com.infosys.stg.doc.model;
+package com.infosys.stg.doc.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.infosys.stg.doc.exception.DocAnalyzeException;
+import com.infosys.stg.doc.model.Pdf2ImageResponse;
 
 @Service
 public class DocService {
