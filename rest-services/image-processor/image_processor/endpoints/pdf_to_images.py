@@ -15,7 +15,7 @@ from image_processor.utils import image_utils
 '''
 
 @app.route('/api/pdf-to-image', methods=['post'])
-def upload_photo():
+def pdf_to_image():
     logger.info("Processing POST request for /api/pdf-to-image ")
     status = config.HTTP_STATUS_OK
     try:
