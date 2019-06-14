@@ -53,6 +53,7 @@ logger.info("Initializing all API endpoints. ")
 
 import image_processor.endpoints.__root__
 import image_processor.endpoints.align_b64
+import image_processor.endpoints.pdf_to_images
 
 # Serve Static Files
 @app.route('/static/<path:path>')
