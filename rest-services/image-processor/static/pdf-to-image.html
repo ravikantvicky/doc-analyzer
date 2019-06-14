@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pdf2image demo</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        
+        function pdf2image(evt) {
+            console.log("Uploading pdf")
+            var container = $("#container")
+            container.empty()
+            
+            var formData = new FormData();
+            formData.append('file', $('#file')[0].files[0]);
+
+            $.ajax({
+                url: "/api/pdf-to-image",
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function (data) {
+                    show_result(data)
+                },
+                error: function (err) {
+                    console.log("error")
+                    console.log(err)
+                }
+            });
+        }
+
+        function show_result(data) {
+            console.log(data)
+            console.log(data.images)
+            console.log("Showing images")
+            var i = 0
+            for (image of data["images"]){
+                i += 1
+                add_image(image, "Page #" + i)
+            }
+            
+        }
+
+        function add_image(img, type) {
+            console.log(img)
+            console.log("adding image")
+            var container = $("#container")
+            container.append("<hr>")
+            container.append("<h4>"+ type +"</h4>")
+            var img_tag = "<img src='data:image/jpeg;base64," + img + "'>"
+            container.append(img_tag)
+
+        }
+    </script>
+</head>
+
+<body>
+    Choose PDF file : <input id="file" type="file"></input>
+    <button onclick="pdf2image()"> Get Images </button>
+    <hr>
+    <div id="container"></div>
+</body>
+
+</html>

@@ -64,16 +64,19 @@
             console.log(data)
             console.log(data.images)
             console.log("Showing images")
-            add_image(data["aligned_img"])
-            add_image(data["key_point_match_img"])
+            add_image(data["aligned_img"], "Aligned Image")
+            add_image(data["key_point_match_img"], "Keypoint Matches")
         }
 
-        function add_image(img) {
+        function add_image(img, type) {
             console.log(img)
             console.log("adding image")
             var container = $("#container")
+            container.append("<hr>")
+            container.append("<h4>"+ type +"</h4>")
             var img_tag = "<img src='data:image/jpeg;base64," + img + "'>"
             container.append(img_tag)
+
         }
     </script>
 </head>

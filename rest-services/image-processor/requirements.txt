@@ -6,3 +6,5 @@ gevent >= 1.4.0
 requests >= 2.18.0
 # for CORS
 flask-cors >= 3.0.3
+# pdf utility 
+pdf2image >= 1.5.4
