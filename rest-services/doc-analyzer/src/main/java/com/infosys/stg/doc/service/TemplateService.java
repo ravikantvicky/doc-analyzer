@@ -36,6 +36,7 @@ public class TemplateService {
 		try {
 			List<String> images = docService.pdf2Image(file).getImages();
 			long templateId = tempRepository.saveTemplate(templateName, UUID.randomUUID().toString(), " ");
+			response.setTemplateId(templateId);
 			List<TemplatePages> templatePages = new ArrayList<>();
 			List<Future<TemplatePages>> allImages = new ArrayList<>();
 			AtomicInteger pageNo = new AtomicInteger(1);

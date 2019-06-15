@@ -3,8 +3,17 @@ package com.infosys.stg.doc.model;
 import java.util.List;
 
 public class TemplateUploadResponse {
+	private long templateId;
 	private String barcode;
 	private List<TemplatePages> images;
+
+	public long getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(long templateId) {
+		this.templateId = templateId;
+	}
 
 	public String getBarcode() {
 		return barcode;
@@ -24,6 +33,6 @@ public class TemplateUploadResponse {
 
 	@Override
 	public String toString() {
-		return "TemplateUploadResponse [barcode=" + barcode + ", images=" + images + "]";
+		return "TemplateUploadResponse [templateId=" + templateId + ", barcode=" + barcode + ", images=" + images + "]";
 	}
 }
