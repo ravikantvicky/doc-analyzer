@@ -1,6 +1,8 @@
 package com.infosys.stg.doc.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.infosys.stg.doc.exception.DocAnalyzeException;
 import com.infosys.stg.doc.model.FormResponse;
 import com.infosys.stg.doc.model.ServiceResponse;
+import com.infosys.stg.doc.model.TemplatePages;
 import com.infosys.stg.doc.repository.FormRepository;
 
 @Service
@@ -33,9 +36,18 @@ public class FormService {
 					return response;
 				}
 			}
+			AtomicInteger counter = new AtomicInteger(0);
+			List<TemplatePages> allImages = new ArrayList<>();
 			formRepo.fetchImages(barcode).forEach(imgData -> {
-				
+				String data = docService.alignImage(images.get(counter.getAndIncrement()), imgData.getImageData());
+				imgData.setImageData(data);
+				allImages.add(imgData);
 			});
+			FormResponse resp = new FormResponse();
+			resp.setImages(allImages);
+			resp.setFields(formRepo.fetchCoordinates(barcode));
+			response.setData(resp);
+			response.setStatus(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(0);

@@ -23,8 +23,7 @@ public class FormController {
 			@RequestParam(value = "barcode", required = false) String barcode) {
 		ServiceResponse response = new ServiceResponse();
 		try {
-			//response.setData(formService.uploadFile(file));
-			response.setStatus(1);
+			return formService.uploadFile(file, barcode);
 		} catch (DocAnalyzeException e) {
 			e.printStackTrace();
 			response.setStatus(0);

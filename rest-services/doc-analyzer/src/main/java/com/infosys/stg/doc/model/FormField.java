@@ -1,13 +1,11 @@
 package com.infosys.stg.doc.model;
 
-import java.util.List;
-
 public class FormField {
 	private int pageNo;
 	private String dataLabel;
 	private String dataValue;
 	private String dataType;
-	private List<FormCoordinates> coordinates;
+	private FormCoordinates coordinates;
 
 	public int getPageNo() {
 		return pageNo;
@@ -41,11 +39,11 @@ public class FormField {
 		this.dataType = dataType;
 	}
 
-	public List<FormCoordinates> getCoordinates() {
+	public FormCoordinates getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(List<FormCoordinates> coordinates) {
+	public void setCoordinates(FormCoordinates coordinates) {
 		this.coordinates = coordinates;
 	}
 

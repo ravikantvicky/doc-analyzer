@@ -54,8 +54,8 @@ public class DocService {
 
 			RestTemplate restTemplate = new RestTemplate();
 			@SuppressWarnings("unchecked")
-			Map<String, String> response = restTemplate.postForObject(env.getProperty(""), request, Map.class,
-					new Object());
+			Map<String, String> response = restTemplate.postForObject(env.getProperty("url.alignImage"), request,
+					Map.class, new Object());
 			if (response != null && response.containsKey("aligned_img"))
 				return response.get("aligned_img");
 			return null;

@@ -13,6 +13,8 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.infosys.stg.doc.model.FormCoordinates;
+import com.infosys.stg.doc.model.FormField;
 import com.infosys.stg.doc.model.TemplatePages;
 
 @Repository
@@ -28,7 +30,7 @@ public class FormRepository {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				PreparedStatement ps = con.prepareStatement("sql.fetchTemplatePages");
+				PreparedStatement ps = con.prepareStatement(env.getProperty("sql.fetchTemplatePages"));
 				ps.setString(1, barcode);
 				return ps;
 			}
@@ -43,6 +45,34 @@ public class FormRepository {
 				tp.setWidth(rs.getDouble("width"));
 				tp.setImageData(rs.getString("image"));
 				return tp;
+			}
+		});
+	}
+
+	public List<FormField> fetchCoordinates(String barcode) {
+		return jdbcTemplate.query(new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement ps = con.prepareStatement(env.getProperty("sql.fetchCoordinates"));
+				ps.setString(1, barcode);
+				return ps;
+			}
+		}, new RowMapper<FormField>() {
+
+			@Override
+			public FormField mapRow(ResultSet rs, int rowNum) throws SQLException {
+				FormField resp = new FormField();
+				resp.setDataLabel(rs.getString("label"));
+				resp.setPageNo(rs.getInt("page_no"));
+				FormCoordinates res = new FormCoordinates();
+				res.setPresent(true);
+				res.setxStart(rs.getDouble("start_x"));
+				res.setxEnd(rs.getDouble("end_x"));
+				res.setyStart(rs.getDouble("end_x"));
+				res.setyEnd(rs.getDouble("end_y"));
+				resp.setCoordinates(res);
+				return resp;
 			}
 		});
 	}
