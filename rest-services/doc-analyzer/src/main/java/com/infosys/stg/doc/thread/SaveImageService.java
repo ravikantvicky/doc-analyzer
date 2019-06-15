@@ -37,7 +37,7 @@ public class SaveImageService implements Callable<TemplatePages> {
 		int scaledHeight = scaledImageWidth * height / width;
 		imageData = ImageUtils.imageToBase64(
 				ImageUtils.resizeImage(ImageUtils.base64ToImage(imageData), scaledImageWidth, scaledHeight));
-		long imageId = tempRepository.saveTemplatePages(templateId, pageNo, imageData, width, height);
+		long imageId = tempRepository.saveTemplatePages(templateId, pageNo, imageData, scaledImageWidth, scaledHeight);
 		TemplatePages tempPage = new TemplatePages();
 		tempPage.setPageNo(pageNo);
 		tempPage.setWidth(width);
