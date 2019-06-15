@@ -43,6 +43,7 @@ public class SaveImageService implements Callable<TemplatePages> {
 		tempPage.setWidth(width);
 		tempPage.setHeight(height);
 		tempPage.setImageUrl(imageBaseUrl + imageId);
+		tempPage.setImageData(imageData);
 		return tempPage;
 	}
 }

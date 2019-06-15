@@ -1,5 +1,8 @@
 package com.infosys.stg.doc.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
@@ -36,6 +39,29 @@ public class DocService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DocAnalyzeException("Error in Pdf2Image conversion.");
+		}
+	}
+
+	public String scanBarCode(String imageData) {
+		return null;
+	}
+
+	public String alignImage(String rawImage, String refImage) {
+		try {
+			Map<String, String> request = new HashMap<>();
+			request.put("raw_image", rawImage);
+			request.put("ref_image", refImage);
+
+			RestTemplate restTemplate = new RestTemplate();
+			@SuppressWarnings("unchecked")
+			Map<String, String> response = restTemplate.postForObject(env.getProperty(""), request, Map.class,
+					new Object());
+			if (response != null && response.containsKey("aligned_img"))
+				return response.get("aligned_img");
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return rawImage;
 		}
 	}
 }

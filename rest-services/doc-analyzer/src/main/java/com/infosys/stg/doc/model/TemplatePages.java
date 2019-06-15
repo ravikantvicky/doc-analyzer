@@ -5,6 +5,7 @@ public class TemplatePages {
 	private int pageNo;
 	private double width;
 	private double height;
+	private String imageData;
 
 	public String getImageUrl() {
 		return imageUrl;
@@ -38,9 +39,11 @@ public class TemplatePages {
 		this.height = height;
 	}
 
-	@Override
-	public String toString() {
-		return "TemplatePages [imageUrl=" + imageUrl + ", pageNo=" + pageNo + ", width=" + width + ", height=" + height
-				+ "]";
+	public String getImageData() {
+		return imageData;
+	}
+
+	public void setImageData(String imageData) {
+		this.imageData = imageData;
 	}
 }
