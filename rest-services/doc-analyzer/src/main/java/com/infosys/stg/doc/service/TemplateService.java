@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.infosys.stg.doc.exception.DocAnalyzeException;
+import com.infosys.stg.doc.model.SaveTemplateRequest;
 import com.infosys.stg.doc.model.TemplatePages;
 import com.infosys.stg.doc.model.TemplateUploadResponse;
 import com.infosys.stg.doc.repository.TemplateRepository;
@@ -40,7 +41,8 @@ public class TemplateService {
 			AtomicInteger pageNo = new AtomicInteger(1);
 			images.forEach(image -> {
 				SaveImageService saveImageService = new SaveImageService(image, templateId, pageNo.getAndAdd(1),
-						env.getProperty("url.imageBaseUrl"), tempRepository);
+						env.getProperty("url.imageBaseUrl"), tempRepository,
+						env.getProperty("value.imageWidth", Integer.class));
 				allImages.add(taskExecutor.submit(saveImageService));
 			});
 			allImages.forEach(img -> {
@@ -60,4 +62,14 @@ public class TemplateService {
 		return response;
 	}
 
+	public String saveTemplateData(SaveTemplateRequest request) throws DocAnalyzeException {
+		try {
+			tempRepository.saveTemplateData(request);
+			tempRepository.updateBarCode(request.getBarcode(), request.getTemplateId());
+			return tempRepository.getTemplateName(request.getTemplateId());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DocAnalyzeException("Error in saving template data..");
+		}
+	}
 }
